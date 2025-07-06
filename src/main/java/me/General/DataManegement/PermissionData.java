@@ -33,5 +33,23 @@ public class PermissionData {
     public void removePermissions(UUID uuid) {
         playerPermissions.remove(uuid);
     }
+
+    public void removeCertainPermissions(UUID uuid, String[] permissions) {
+        playerPermissions.remove(uuid, permissions);
+    }
+
+    public void addPermissions(UUID uuid, String[] newPermissions) {
+        String[] existingPermissions = playerPermissions.get(uuid);
+        Set<String> merged = new LinkedHashSet<>();
+
+        if (existingPermissions != null) {
+            merged.addAll(Arrays.asList(existingPermissions));
+        }
+
+        merged.addAll(Arrays.asList(newPermissions));  // Merge new permissions
+
+        playerPermissions.put(uuid, merged.toArray(new String[0]));
+    }
+
 }
 

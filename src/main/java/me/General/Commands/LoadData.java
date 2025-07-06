@@ -1,6 +1,8 @@
 package me.General.Commands;
 
 import me.General.Chat.Broadcaster;
+import me.General.DataManegement.DataFunctions;
+import me.General.DataManegement.PermissionData;
 import me.General.DataManegement.PlayerData;
 import net.minestom.server.command.CommandSender;
 import net.minestom.server.command.builder.Command;
@@ -22,23 +24,6 @@ public class LoadData extends Command {
 
     private void execute(@NotNull CommandSender commandSender, @NotNull CommandContext commandContext) {
         Player player = (Player) commandSender;
-        Path filePath = Path.of("playerdata/" + player.getUuid() + ".dat");
-
-        if (Files.exists(filePath)) {
-            try (ObjectInputStream in = new ObjectInputStream(Files.newInputStream(filePath))) {
-                PlayerData data = (PlayerData) in.readObject();
-                Broadcaster.broadcast(data.username + " " + data.uuid);
-                for (String permission : data.permissions) {
-                    Broadcaster.broadcast(permission);
-                }
-                Pos pos = new Pos(data.x, data.y, data.z);
-                player.teleport(pos);
-                //Component text = Component.text("test");
-                //player.sendMessage(text);
-
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
+        DataFunctions.getInstance().loadData(player);
     }
 }

@@ -1,6 +1,7 @@
 package me.General.Commands;
 
 import me.General.Chat.Broadcaster;
+import me.General.DataManegement.DataFunctions;
 import me.General.DataManegement.PermissionData;
 import me.General.DataManegement.PlayerData;
 import net.minestom.server.command.CommandSender;
@@ -27,27 +28,6 @@ public class SaveData extends Command {
 
     private void execute(@NotNull CommandSender commandSender, @NotNull CommandContext commandContext) {
         Player player = (Player) commandSender;
-        //for (String permission : PermissionData.getInstance().getPermission(player.getUuid())) {
-        //    Broadcaster.broadcast(permission);
-        //}
-        //Path filePath = Path.of("playerdata/" + player.getUuid() + ".dat");
-
-        PlayerData data = new PlayerData(
-                player.getUuid(),
-                player.getUsername(),
-                player.getPosition().x(),
-                player.getPosition().y(),
-                player.getPosition().z(),
-                PermissionData.getInstance().getPermission(player.getUuid())
-               // permissionData.getPermission(player.getUuid())
-
-                //player.getPosition()
-        );
-        try (ObjectOutputStream out = new ObjectOutputStream(
-                Files.newOutputStream(Path.of("playerdata/" + player.getUuid() + ".dat")))) {
-            out.writeObject(data);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        DataFunctions.getInstance().saveData(player);
     }
 }
