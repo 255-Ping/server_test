@@ -39,6 +39,7 @@ public class DataFunctions {
             e.printStackTrace();
         }
         PermissionData.getInstance().removePermissions(player.getUuid());
+        LOGGER.info("Player data saved for {}", player.getUuid());
     }
 
     public void loadData(Player player) {
@@ -55,6 +56,7 @@ public class DataFunctions {
                 Pos pos = new Pos(data.x, data.y, data.z);
                 player.teleport(pos);
                 PermissionData.getInstance().setPermission(player.getUuid(), data.permissions);
+                LOGGER.info("Player data loaded for {}", player.getUuid());
 
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();

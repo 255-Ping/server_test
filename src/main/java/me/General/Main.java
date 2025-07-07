@@ -38,9 +38,11 @@ public class Main {
 
         //light
         instanceContainer.setChunkSupplier(LightingChunk::new);
+        log.info("Instance created");
 
         //Skins
         MojangAuth.init();
+        log.info("Mojang Auth Init");
 
         // Add an event callback to specify the spawning instance (and the spawn position)
         GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
@@ -66,11 +68,13 @@ public class Main {
         });
 
         globalEventHandler.addChild(globalEvents);
-        // Create Directories
+        log.info("Global events loaded");
 
+        // Create Directories
         Path folderpath = Path.of("playerdata");
         if (Files.notExists(folderpath)) {
             Files.createDirectories(folderpath);
+            log.info("{} created", folderpath);
         }
 
         //Register Commands
@@ -80,6 +84,7 @@ public class Main {
         MinecraftServer.getCommandManager().register(new Permission());
         MinecraftServer.getCommandManager().register(new SaveData());
         MinecraftServer.getCommandManager().register(new LoadData());
+        log.info("Commands loaded");
 
         // Start the server on port 25565
         minecraftServer.start("0.0.0.0", 25565);

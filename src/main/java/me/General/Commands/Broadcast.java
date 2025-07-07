@@ -21,14 +21,13 @@ public class Broadcast extends Command {
 
     private void executeWithArgs(@NotNull CommandSender commandSender, @NotNull CommandContext commandContext) {
         Player player = (Player) commandSender;
-        if (Permissions.getInstance().permissionChecker(player, "broadcast.admin")) {
-            String message = commandContext.get("message");
-            Broadcaster.broadcast(message);
-        } else {
+        if (!Permissions.getInstance().permissionChecker(player, "broadcast.admin")) {
             player.sendMessage("No Permission!");
+            return;
         }
+
+        String message = commandContext.get("message");
+        Broadcaster.broadcast(message);
     }
-
-
 }
 
