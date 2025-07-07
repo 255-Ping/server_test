@@ -1,7 +1,6 @@
 package me.General.DataManegement;
 
 import me.General.Chat.Broadcaster;
-import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Player;
 import org.slf4j.Logger;
@@ -43,7 +42,7 @@ public class DataFunctions {
     }
 
     public void loadData(Player player) {
-        LOGGER.info("This is a message!");
+        //LOGGER.info("This is a message!");
         Path filePath = Path.of("playerdata/" + player.getUuid() + ".dat");
 
         if (Files.exists(filePath)) {

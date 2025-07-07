@@ -1,6 +1,5 @@
 package me.General.Commands;
 
-import me.General.Chat.Broadcaster;
 import me.General.DataManegement.PermissionData;
 import net.minestom.server.command.CommandSender;
 import net.minestom.server.command.builder.Command;
@@ -36,9 +35,6 @@ public class Permission extends Command {
             player.sendMessage("Permission " + permission + " set!");
         } else {
             player.sendMessage("Invalid first argument!");
-            //for (String permission_list : PermissionData.getInstance().getPermission(player.getUuid())) {
-            //    Broadcaster.broadcast(permission_list);
-            //}
         }
     }
 
@@ -58,17 +54,12 @@ public class Permission extends Command {
             player.sendMessage("Permission " + permission + " set for " + target.getUsername());
         } else {
             player.sendMessage("Invalid first argument!");
-            //for (String permission_list : PermissionData.getInstance().getPermission(player.getUuid())) {
-            //    Broadcaster.broadcast(permission_list);
-            //}
         }
     }
 
     private void executeList(@NotNull CommandSender commandSender, @NotNull CommandContext commandContext) {
         Player player = (Player) commandSender;
         String selector = commandContext.get("selector");
-        //String permission = commandContext.get("permission");
-        //String[] permissionParts = permission.split("\\|");
         if (selector.equals("list")) {
             for (String permission_list : PermissionData.getInstance().getPermission(player.getUuid())) {
                 player.sendMessage(permission_list);
